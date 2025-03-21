@@ -1,4 +1,4 @@
-import "./style.css";
+import "./styles.css";
 
 document.addEventListener("DOMContentLoaded", function () {
   let locationElement = document.querySelector("#location");
