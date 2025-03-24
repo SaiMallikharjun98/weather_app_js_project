@@ -10,7 +10,13 @@ document.addEventListener("DOMContentLoaded", function () {
   let windSpeedElement = document.querySelector("#wind-speed");
   let videoElement = document.querySelector("#weather-video");
   let videoSource = document.querySelector("#video-source");
+  let spinnerElement = document.createElement("div"); // Create spinner div
+
+  spinnerElement.className = "spinner"; // Assign CSS class
+  document.body.appendChild(spinnerElement); // Append spinner to body
+
   const API_KEY = import.meta.env.VITE_API_KEY;
+
   async function fetchWeather(city) {
     if (!API_KEY) {
       alert("API Key is missing! Check your .env file.");
@@ -20,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
     try {
+      spinnerElement.style.display = "block"; // Show spinner
+
       const response = await fetch(url);
       const responseData = await response.text(); // Read response as text first
       console.log("Raw API Response:", responseData);
@@ -56,6 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (error) {
       console.error("Error fetching weather:", error);
       alert("City not found! Please try again.");
+    } finally {
+      spinnerElement.style.display = "none"; // Hide spinner
     }
   }
 
