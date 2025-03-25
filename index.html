@@ -3,14 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <script defer type="module" src="/src/main.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
     />
     <link rel="icon" href="./weather-forecast.png" type="image/png" />
-    <title>Weather</title>
   </head>
-  <body class="flex flex-col items-center justify-center h-screen w-full">
+  <body
+    class="flex flex-col items-center justify-center h-screen w-full bg-gray-800"
+  >
     <!-- Background Video -->
     <video
       id="weather-video"
@@ -23,24 +27,29 @@
     </video>
 
     <!-- Main Weather Content -->
-    <div class="relative text-center pt-[50px]">
-      <h1 class="text-3xl font-bold text-blue-800">Weather</h1>
+    <div class="relative text-center pt-10 p-6 rounded-lg shadow-lg">
+      <h1 class="text-3xl font-bold text-blue-800">Weather App</h1>
 
-      <!-- Location Input -->
-      <div
-        class="flex items-center bg-white rounded-md p-2 w-[250px] mx-auto mt-4 shadow-lg"
-      >
-        <i class="bi bi-geo-alt-fill text-pink-600 text-lg"></i>
-        <input
-          type="text"
-          placeholder="Enter location"
-          id="location"
-          class="flex-grow outline-none border-none text-md pl-2"
-        />
-        <i
-          class="bi bi-search text-gray-500 text-lg cursor-pointer"
-          id="search-icon"
-        ></i>
+      <!-- Location Input with Autocomplete -->
+      <div class="relative w-64 mx-auto mt-4">
+        <div class="flex items-center bg-white rounded-md p-2 shadow-lg">
+          <i class="bi bi-geo-alt-fill text-pink-600 text-lg"></i>
+          <input
+            type="text"
+            placeholder="Enter location"
+            id="location"
+            class="flex-grow outline-none border-none text-md pl-2"
+          />
+          <i
+            class="bi bi-search text-gray-500 text-lg cursor-pointer"
+            id="search-icon"
+          ></i>
+        </div>
+        <!-- Suggestions Dropdown -->
+        <ul
+          id="suggestions"
+          class="absolute w-full bg-white shadow-md hidden max-h-40 overflow-y-auto rounded-md"
+        ></ul>
       </div>
 
       <!-- Loading Spinner -->
@@ -82,7 +91,5 @@
         </div>
       </div>
     </div>
-
-    <script type="module" src="/src/main.js"></script>
   </body>
 </html>

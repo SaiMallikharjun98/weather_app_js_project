@@ -1,8 +1,7 @@
-import "./styles.css";
-
 document.addEventListener("DOMContentLoaded", function () {
   let locationElement = document.querySelector("#location");
   let searchElement = document.querySelector("#search-icon");
+  let suggestionsList = document.querySelector("#suggestions");
   let degreesElement = document.querySelector("#degrees");
   let weatherUpdateElement = document.querySelector("#weather-update");
   let feelsLikeElement = document.querySelector("#feels-like");
@@ -10,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let windSpeedElement = document.querySelector("#wind-speed");
   let videoElement = document.querySelector("#weather-video");
   let videoSource = document.querySelector("#video-source");
-  let spinnerElement = document.querySelector("#spinner"); // Use existing spinner
+  let spinnerElement = document.querySelector("#spinner");
 
   const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -23,11 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
     try {
-      // Show spinner
       spinnerElement.classList.remove("hidden");
 
       const response = await fetch(url);
-
       if (!response.ok) {
         console.error("API Request Failed:", response.status);
         alert("City not found or API error! Please try again.");
@@ -47,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error fetching weather:", error);
       alert("City not found! Please try again.");
     } finally {
-      // Hide spinner
       spinnerElement.classList.add("hidden");
     }
   }
@@ -62,25 +58,69 @@ document.addEventListener("DOMContentLoaded", function () {
     else if (weatherCondition.includes("snow")) newVideoSrc = "./snow.mp4";
     else if (weatherCondition.includes("sunny")) newVideoSrc = "./sunny.mp4";
 
-    // Check if video needs updating
     if (!videoSource.src.endsWith(newVideoSrc)) {
       videoSource.src = newVideoSrc;
       videoElement.load();
     }
   }
 
-  searchElement.addEventListener("click", function () {
+  async function fetchCitySuggestions(query) {
+    if (query.length < 3) {
+      suggestionsList.innerHTML = "";
+      suggestionsList.classList.add("show");
+      return;
+    }
+
+    const url = `https://api.openweathermap.org/data/2.5/find?q=${query}&appid=${API_KEY}&units=metric`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      displaySuggestions(data.list);
+    } catch (error) {
+      console.error("Error fetching city suggestions:", error);
+    }
+  }
+
+  function displaySuggestions(cities) {
+    suggestionsList.innerHTML = "";
+    if (!cities.length) {
+      suggestionsList.classList.add("hidden");
+      return;
+    }
+
+    cities.forEach((city) => {
+      const li = document.createElement("li");
+      li.textContent = `${city.name}, ${city.sys.country}`;
+      li.classList.add("p-2", "cursor-pointer", "hover:bg-gray-200");
+      li.addEventListener("click", () => {
+        locationElement.value = city.name;
+        suggestionsList.innerHTML = "";
+        suggestionsList.classList.add("hidden");
+        fetchWeather(city.name);
+      });
+      suggestionsList.appendChild(li);
+    });
+
+    suggestionsList.classList.remove("hidden");
+  }
+
+  locationElement.addEventListener("input", (e) => {
+    fetchCitySuggestions(e.target.value);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("#suggestions") && e.target !== locationElement) {
+      suggestionsList.classList.add("hidden");
+    }
+  });
+
+  searchElement.addEventListener("click", () => {
     const city = locationElement.value.trim();
     if (city) {
       fetchWeather(city);
     } else {
       alert("Please enter a city name!");
-    }
-  });
-
-  locationElement.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      searchElement.click();
     }
   });
 });
