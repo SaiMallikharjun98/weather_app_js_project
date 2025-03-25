@@ -10,10 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let windSpeedElement = document.querySelector("#wind-speed");
   let videoElement = document.querySelector("#weather-video");
   let videoSource = document.querySelector("#video-source");
-  let spinnerElement = document.createElement("div"); // Create spinner div
-
-  spinnerElement.className = "spinner"; // Assign CSS class
-  document.body.appendChild(spinnerElement); // Append spinner to body
+  let spinnerElement = document.querySelector("#spinner"); // Use existing spinner
 
   const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -26,19 +23,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
     try {
-      spinnerElement.style.display = "block"; // Show spinner
+      // Show spinner
+      spinnerElement.classList.remove("hidden");
 
       const response = await fetch(url);
-      const responseData = await response.text(); // Read response as text first
-      console.log("Raw API Response:", responseData);
 
       if (!response.ok) {
         console.error("API Request Failed:", response.status);
-        alert("City not found or API error! Check the console.");
+        alert("City not found or API error! Please try again.");
         return;
       }
 
-      const data = JSON.parse(responseData);
+      const data = await response.json();
 
       degreesElement.innerText = `${data.main.temp}°C`;
       weatherUpdateElement.innerText = data.weather[0].description;
@@ -46,26 +42,30 @@ document.addEventListener("DOMContentLoaded", function () {
       humidityElement.innerText = `${data.main.humidity}%`;
       windSpeedElement.innerText = `${data.wind.speed} m/s`;
 
-      const weatherCondition = data.weather[0].main.toLowerCase();
-      let newVideoSrc = "./default.mp4";
-
-      if (weatherCondition.includes("rain")) newVideoSrc = "./rain.mp4";
-      else if (weatherCondition.includes("cloud")) newVideoSrc = "./cloudy.mp4";
-      else if (weatherCondition.includes("clear"))
-        newVideoSrc = "./clearSky.mp4";
-      else if (weatherCondition.includes("haze")) newVideoSrc = "./Hazy.mp4";
-      else if (weatherCondition.includes("snow")) newVideoSrc = "./snow.mp4";
-      else if (weatherCondition.includes("sunny")) newVideoSrc = "./sunny.mp4";
-
-      if (videoSource.src !== newVideoSrc) {
-        videoSource.src = newVideoSrc;
-        videoElement.load();
-      }
+      updateBackgroundVideo(data.weather[0].main.toLowerCase());
     } catch (error) {
       console.error("Error fetching weather:", error);
       alert("City not found! Please try again.");
     } finally {
-      spinnerElement.style.display = "none"; // Hide spinner
+      // Hide spinner
+      spinnerElement.classList.add("hidden");
+    }
+  }
+
+  function updateBackgroundVideo(weatherCondition) {
+    let newVideoSrc = "./default.mp4";
+
+    if (weatherCondition.includes("rain")) newVideoSrc = "./rain.mp4";
+    else if (weatherCondition.includes("cloud")) newVideoSrc = "./cloudy.mp4";
+    else if (weatherCondition.includes("clear")) newVideoSrc = "./clearSky.mp4";
+    else if (weatherCondition.includes("haze")) newVideoSrc = "./Hazy.mp4";
+    else if (weatherCondition.includes("snow")) newVideoSrc = "./snow.mp4";
+    else if (weatherCondition.includes("sunny")) newVideoSrc = "./sunny.mp4";
+
+    // Check if video needs updating
+    if (!videoSource.src.endsWith(newVideoSrc)) {
+      videoSource.src = newVideoSrc;
+      videoElement.load();
     }
   }
 
