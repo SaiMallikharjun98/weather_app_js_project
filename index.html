@@ -13,9 +13,8 @@
     <link rel="icon" href="./weather-forecast.png" type="image/png" />
   </head>
   <body
-    class="flex flex-col text-center justify-center h-screen w-full bg-gray-800"
+    class="flex flex-col items-center text-center justify-center min-h-screen w-full bg-gray-800"
   >
-    <!-- Background Video -->
     <video
       id="weather-video"
       class="absolute top-0 left-0 w-full h-full object-cover"
@@ -26,14 +25,17 @@
       <source id="video-source" src="./230900_tiny.mp4" type="video/mp4" />
     </video>
 
-    <!-- Main Weather and Image Container -->
-    <div class="relative flex justify-between items-center p-6 w-full h-full">
+    <div
+      class="relative flex flex-col md:flex-row justify-center items-center w-full h-full p-4 md:p-6"
+    >
       <!-- Weather Content -->
-      <div class="w-1/2 text-center">
-        <h1 class="text-3xl font-bold text-blue-800">Weather App</h1>
+      <div class="w-full md:w-1/2 text-center p-4">
+        <h1 class="text-2xl md:text-3xl font-bold text-blue-800">
+          Weather App
+        </h1>
 
-        <!-- Location Input with Autocomplete -->
-        <div class="relative w-64 mx-auto mt-4">
+        <!-- Location Input -->
+        <div class="relative w-full max-w-xs mx-auto mt-4">
           <div class="flex items-center bg-white rounded-md p-2 shadow-lg">
             <i class="bi bi-geo-alt-fill text-pink-600 text-lg"></i>
             <input
@@ -47,7 +49,6 @@
               id="search-icon"
             ></i>
           </div>
-          <!-- Suggestions Dropdown -->
           <ul
             id="suggestions"
             class="absolute w-full bg-white shadow-md hidden max-h-40 overflow-y-auto rounded-md"
@@ -66,7 +67,7 @@
         <p class="text-md text-white font-bold pt-1" id="weather-update"></p>
 
         <!-- Weather Stats -->
-        <div class="grid grid-cols-3 gap-4 mt-4 text-center">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4 text-center">
           <div>
             <p
               class="text-sm text-blue-600 bg-white p-2 rounded w-[80px] mx-auto"
@@ -83,7 +84,7 @@
             </p>
             <p class="text-white text-lg pt-2" id="humidity"></p>
           </div>
-          <div>
+          <div class="col-span-2 md:col-span-1">
             <p
               class="text-sm text-blue-600 bg-white p-2 rounded w-[120px] mx-auto"
             >
@@ -95,13 +96,13 @@
       </div>
 
       <!-- Image Content -->
-      <div class="w-1/2 flex flex-col items-center">
+      <div class="w-full md:w-1/2 flex flex-col items-center mt-6 md:mt-0">
         <p class="text-sm font-medium text-white">Suggested Attire:</p>
         <img
           id="dress-image"
           src="images/default-dress.jpg"
           alt="Suggested dress based on weather"
-          class="mt-2 w-[250px] h-[250px] object-contain rounded-lg shadow-lg"
+          class="mt-2 w-[200px] h-[200px] md:w-[250px] md:h-[250px] object-contain rounded-lg shadow-lg"
         />
       </div>
     </div>
