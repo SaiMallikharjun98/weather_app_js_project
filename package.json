@@ -19,6 +19,7 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
+    "@google/genai": "^0.7.0",
     "@tailwindcss/vite": "^4.0.15"
   }
 }

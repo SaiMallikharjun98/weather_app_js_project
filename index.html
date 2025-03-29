@@ -13,7 +13,7 @@
     <link rel="icon" href="./weather-forecast.png" type="image/png" />
   </head>
   <body
-    class="flex flex-col items-center justify-center h-screen w-full bg-gray-800"
+    class="flex flex-col  h-screen w-full bg-gray-800"
   >
     <!-- Background Video -->
     <video
@@ -51,7 +51,7 @@
           class="absolute w-full bg-white shadow-md hidden max-h-40 overflow-y-auto rounded-md"
         ></ul>
       </div>
-
+     
       <!-- Loading Spinner -->
       <div id="spinner" class="hidden mt-4">
         <i
@@ -90,6 +90,9 @@
           <p class="text-white text-lg pt-2" id="wind-speed"></p>
         </div>
       </div>
+      <div class="dress-suggestion mt-4 text-center">
+        <p class="text-sm font-medium">Suggested Attire:</p>
+        <img id="dress-image" src="images/default-dress.jpg" alt="Suggested dress based on weather" class="mx-auto mt-2 w-24 h-24 object-contain">
     </div>
   </body>
 </html>
