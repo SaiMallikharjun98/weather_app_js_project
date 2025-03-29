@@ -12,9 +12,7 @@
     />
     <link rel="icon" href="./weather-forecast.png" type="image/png" />
   </head>
-  <body
-    class="flex flex-col text-center  h-screen w-[50%] bg-gray-800"
-  >
+  <body class="flex flex-col text-center h-screen w-[50%] bg-gray-800">
     <!-- Background Video -->
     <video
       id="weather-video"
@@ -25,74 +23,65 @@
     >
       <source id="video-source" src="./230900_tiny.mp4" type="video/mp4" />
     </video>
-
-    <!-- Main Weather Content -->
-    <div class="relative text-center pt-10 p-6 rounded-lg">
-      <h1 class="text-3xl font-bold text-blue-800">Weather App</h1>
-
-      <!-- Location Input with Autocomplete -->
-      <div class="relative w-64 mx-auto mt-4">
-        <div class="flex items-center bg-white rounded-md p-2 shadow-lg">
-          <i class="bi bi-geo-alt-fill text-pink-600 text-lg"></i>
-          <input
-            type="text"
-            placeholder="Enter location"
-            id="location"
-            class="flex-grow outline-none border-none text-md pl-2"
-          />
-          <i
-            class="bi bi-search text-gray-500 text-lg cursor-pointer"
-            id="search-icon"
-          ></i>
+  
+    <!-- Main Weather and Image Container -->
+    <div class="relative flex justify-between items-center p-6 w-full h-full">
+      <!-- Weather Content -->
+      <div class="w-1/2 text-center">
+        <h1 class="text-3xl font-bold text-blue-800">Weather App</h1>
+  
+        <!-- Location Input with Autocomplete -->
+        <div class="relative w-64 mx-auto mt-4">
+          <div class="flex items-center bg-white rounded-md p-2 shadow-lg">
+            <i class="bi bi-geo-alt-fill text-pink-600 text-lg"></i>
+            <input
+              type="text"
+              placeholder="Enter location"
+              id="location"
+              class="flex-grow outline-none border-none text-md pl-2"
+            />
+            <i class="bi bi-search text-gray-500 text-lg cursor-pointer" id="search-icon"></i>
+          </div>
+          <!-- Suggestions Dropdown -->
+          <ul id="suggestions" class="absolute w-full bg-white shadow-md hidden max-h-40 overflow-y-auto rounded-md"></ul>
         </div>
-        <!-- Suggestions Dropdown -->
-        <ul
-          id="suggestions"
-          class="absolute w-full bg-white shadow-md hidden max-h-40 overflow-y-auto rounded-md"
-        ></ul>
-      </div>
-     
-      <!-- Loading Spinner -->
-      <div id="spinner" class="hidden mt-4">
-        <i
-          class="bi bi-arrow-clockwise text-blue-500 text-3xl animate-spin"
-        ></i>
-      </div>
-
-      <!-- Weather Details -->
-      <h3 class="font-bold text-lg text-white mt-4" id="degrees"></h3>
-      <p class="text-md text-white font-bold pt-1" id="weather-update"></p>
-
-      <!-- Weather Stats -->
-      <div class="grid grid-cols-3 gap-4 mt-4 text-center">
-        <div>
-          <p
-            class="text-sm text-blue-600 bg-white p-2 rounded w-[80px] mx-auto"
-          >
-            Feels like
-          </p>
-          <p class="text-white text-lg pt-2" id="feels-like"></p>
+  
+        <!-- Loading Spinner -->
+        <div id="spinner" class="hidden mt-4">
+          <i class="bi bi-arrow-clockwise text-blue-500 text-3xl animate-spin"></i>
         </div>
-        <div>
-          <p
-            class="text-sm text-blue-600 bg-white p-2 rounded w-[80px] mx-auto"
-          >
-            Humidity
-          </p>
-          <p class="text-white text-lg pt-2" id="humidity"></p>
-        </div>
-        <div>
-          <p
-            class="text-sm text-blue-600 bg-white p-2 rounded w-[120px] mx-auto"
-          >
-            Wind Speed
-          </p>
-          <p class="text-white text-lg pt-2" id="wind-speed"></p>
+  
+        <!-- Weather Details -->
+        <h3 class="font-bold text-lg text-white mt-4" id="degrees"></h3>
+        <p class="text-md text-white font-bold pt-1" id="weather-update"></p>
+  
+        <!-- Weather Stats -->
+        <div class="grid grid-cols-3 gap-4 mt-4 text-center">
+          <div>
+            <p class="text-sm text-blue-600 bg-white p-2 rounded w-[80px] mx-auto">Feels like</p>
+            <p class="text-white text-lg pt-2" id="feels-like"></p>
+          </div>
+          <div>
+            <p class="text-sm text-blue-600 bg-white p-2 rounded w-[80px] mx-auto">Humidity</p>
+            <p class="text-white text-lg pt-2" id="humidity"></p>
+          </div>
+          <div>
+            <p class="text-sm text-blue-600 bg-white p-2 rounded w-[120px] mx-auto">Wind Speed</p>
+            <p class="text-white text-lg pt-2" id="wind-speed"></p>
+          </div>
         </div>
       </div>
-      <div class="dress-suggestion mt-4 text-center w-[50%] ml-[80%]">
-        <p class="text-sm font-medium">Suggested Attire:</p>
-        <img id="dress-image" src="images/default-dress.jpg" alt="Suggested dress based on weather" class=" mt-2 w-[250px] h-[250px] object-contain">
+  
+      <!-- Image Content -->
+      <div class="w-1/2 flex flex-col items-center">
+        <p class="text-sm font-medium text-white">Suggested Attire:</p>
+        <img
+          id="dress-image"
+          src="images/default-dress.jpg"
+          alt="Suggested dress based on weather"
+          class="mt-2 w-[250px] h-[250px] object-contain rounded-lg shadow-lg"
+        />
+      </div>
     </div>
   </body>
-</html>
+</html>  
