@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // --- API Keys and AI Setup (Keep as is, but ensure GOOGLE_API_KEY is correctly passed) ---
   const API_KEY = import.meta.env.VITE_API_KEY;
   // Ensure GOOGLE_API_KEY is fetched correctly from your environment
-  const GOOGLE_API_KEY = import.meta.env.VITE_GEMINI_API_KEY; // Corrected variable name if needed
+  const GOOGLE_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
   let ai; // Declare ai variable
 
   // Initialize GoogleGenAI only if the key exists
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
       newImageSrc = "images/rainy-dress.jpg";
       altText = "Suggested attire for rain: Raincoat, umbrella";
     } else if (weatherCondition.includes("snow")) {
-      newImageSrc = "images/snowy-dress.jpg";
+      newImageSrc = "images/snowy-dress.png";
       altText = "Suggested attire for snow: Heavy coat, hat, gloves";
     } else if (
       weatherCondition.includes("clear") ||
@@ -286,10 +286,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // --- Event Listeners (Existing - Minor Adjustments) ---
+  
   locationElement.addEventListener("input", (e) => {
-    // Debounce fetching suggestions to avoid excessive API calls
-    // Basic debounce: clear previous timeout if user types quickly
+    
     clearTimeout(locationElement.suggestionTimeout);
     locationElement.suggestionTimeout = setTimeout(() => {
       fetchCitySuggestions(e.target.value);
