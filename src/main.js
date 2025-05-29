@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "Suggested attire for cool cloudy weather: Sweater or light jacket";
       } else {
         // Cold cloudy
-        newImageSrc = "images/snowy-dress.jpg"; // Use a warmer image like snowy or a dedicated 'cold' image
+        newImageSrc = "images/snowy-dress.png"; // Use a warmer image like snowy or a dedicated 'cold' image
         altText =
           "Suggested attire for cold cloudy weather: Warm jacket or coat";
       }
